@@ -9,11 +9,13 @@ Composer require 'milkwood/accessable'
 
 ### Step 2: Add The ServiceProvider
 
-Add the following line to your service providers i Config/App.php
+Add the following lines to your service providers i Config/App.php and a CH facade
 
 ```
-"Milkwood\Accessable\AccesableServiceProvider"
-"Milkwood\CustomHelper\CustomHelperServiceProvider"
+"Milkwood\Accessable\AccesableServiceProvider",
+"Milkwood\CustomHelper\CustomHelperServiceProvider",
+
+'CH' => 'Milkwood\CustomHelper\CH',
 ```
 
 ### Step 3: Publish Middleware
