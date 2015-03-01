@@ -19,7 +19,7 @@ class AccessableServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->publishes([
-		    __DIR__.'/Authenticate.php' => base_path('/app/Http/Middleware/Authenticate.php')
+		    __DIR__.'/Middleware/' => base_path('/app/Http/Middleware/')
 		], 'middleware');
 	}
 
