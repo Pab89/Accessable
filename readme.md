@@ -10,6 +10,8 @@ Composer require 'milkwood/accessable'
 ### Step 2: Add The ServiceProvider
 
 Add the following lines to your service providers i Config/App.php and a CH facade
+You are here adding both the service provider for CustomHelper which Accessable is dependent on aswell as it's own
+You are also adding a facade for Customhelper
 
 ```
 "Milkwood\Accessable\AccesableServiceProvider",
@@ -20,11 +22,17 @@ Add the following lines to your service providers i Config/App.php and a CH faca
 
 ### Step 3: Publish Middleware
 
-Via the console
+Via the console, to publish the middlewhere
 
 ```
 php artisan vendor:publish
 ```
+
+You can now use
+```
+['middleware' => 'auth]
+```
+In your routes
 
 ### Step 4: Add Actions To Check For
 
@@ -46,45 +54,13 @@ class ExampleClass{
 	use Accessable;
 
 }
-´´´
+```
 
 ### Step 6: Create The Rules
 
-See examples below
+See examples below of rules on the usertype below
 
 ```
-// Requirement functions
-
-public function reqRoles($roles){
-
-	return $this->sendOfAccess('userType', [ __FUNCTION__ => $roles]);
-
-}
-
-public function forbiddenRoles($roles){
-
-	return $this->sendOfAccess('userType', [ __FUNCTION__ => $roles]);
-	
-}
-
-public function minAccessLevel($accessLevel){
-
-	return $this->sendOfAccess('userType', [ __FUNCTION__ => $accessLevel]);
-
-}
-
-public function maxAccessLevel($accessLevel){
-
-	return $this->sendOfAccess('userType', [ __FUNCTION__ => $accessLevel]);
-
-}
-
-public function moduleToAccess($moduleName){
-
-	return $this->sendOfAccess('company', [ __FUNCTION__ => $moduleName]);
-
-}
-
 // Requirement functions
 
 public function reqRoles($roles){
@@ -132,7 +108,11 @@ public function maxAccessLevel($accessLevel){
 	return false;
 
 }
+```
 
+See below for an example of company requirering modules
+
+```
 public function moduleToAccess($moduleName){
 	
 	$modulesCompanyHasAccessTo = $this->modules->lists('name');
@@ -143,6 +123,40 @@ public function moduleToAccess($moduleName){
 
 	$this->error = 'Din virksomhed har ikke adgang til dette modul';
 	return false;
+
+}
+```
+
+See below how to send of the request to another class
+
+```
+public function reqRoles($roles){
+
+	return $this->sendOfAccess('userType', [ __FUNCTION__ => $roles]);
+
+}
+
+public function forbiddenRoles($roles){
+
+	return $this->sendOfAccess('userType', [ __FUNCTION__ => $roles]);
+	
+}
+
+public function minAccessLevel($accessLevel){
+
+	return $this->sendOfAccess('userType', [ __FUNCTION__ => $accessLevel]);
+
+}
+
+public function maxAccessLevel($accessLevel){
+
+	return $this->sendOfAccess('userType', [ __FUNCTION__ => $accessLevel]);
+
+}
+
+public function moduleToAccess($moduleName){
+
+	return $this->sendOfAccess('company', [ __FUNCTION__ => $moduleName]);
 
 }
 ```
