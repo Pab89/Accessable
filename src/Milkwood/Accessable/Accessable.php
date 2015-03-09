@@ -62,10 +62,20 @@
 		// Create an html link if the user has access
 		public function linkToActionIfHasAccess($action,$title,$parametres = [],$attributes = []){
 		
-			if( $this->hasAccessToAction( $action ) ){
-				return link_to_action($action,$title,$parametres,$attributes);
-			}
+			return $this->linkToActionIfHasAccessAddHtml($action,$title,'','',$parametres,$attributes);
 		
+		}
+
+		public function linkToActionIfHasAccessAddHtml($action,$title,$beforeHtml,$afterHtml,$parametres = [],$attributes = []){
+
+			if( $this->hasAccessToAction( $action ) ){
+				$html = $beforeHtml;
+				$html .= link_to_action($action,$title,$parametres,$attributes);
+				$html .= $afterHtml;
+
+				return $html;
+			}
+
 		}
 
 		// Used if you want a model to check it's requirements of an restrictions array
